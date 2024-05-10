@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${URL}
+    username: ${USERNAME}
+    password: ${PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        highlight_sql : true
+
+  batch:
+    job:
+      name: StockJob
+    jdbc:
+      initialize-schema: always
+
+application:
+  security:
+    jwt:
+      secret-key: ${SecretKey}
+      expiration: 7200000 # 120 min
+      refresh-token:
+        expiration: 604800000 # 7 days

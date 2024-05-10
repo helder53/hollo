@@ -1,0 +1,18 @@
+[
+  {
+    "stock_name": "네이버",
+    "price":"1000"
+  },
+  {
+    "stock_name": "카카오",
+    "price":"2000"
+  },
+  {
+    "stock_name": "삼성",
+    "price":"3000"
+  },
+  {
+    "stock_name": "바이오",
+    "price":"2000"
+  }
+]
