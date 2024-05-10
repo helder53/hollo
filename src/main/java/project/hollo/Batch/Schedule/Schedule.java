@@ -25,7 +25,7 @@ public class Schedule {
     private Job reservationPaymentJob;
 
     // 평일, 아침 9시부터 저녁 6시까지 1시간마다 실행
-    @Scheduled(cron = "0 0/5 9-23 * * MON-FRI")
+    @Scheduled(cron = "0 0 9-18 * * MON-FRI")
     public void ScheduledJobRunner() throws Exception{
         JobParameters params = new JobParametersBuilder()
                 .addString("JobID", "StockJob_" + System.currentTimeMillis())
@@ -34,7 +34,7 @@ public class Schedule {
     }
 
     // 평일, 1분마다 실행
-    @Scheduled(cron = "0 0/1 9-23 * * MON-FRI")
+    @Scheduled(cron = "0 0/1 9-18 * * MON-FRI")
     public void ReservationJobRunner() throws Exception{
         JobParameters params = new JobParametersBuilder()
                 .addString("JobID", "ReservationPaymentJob_" + System.currentTimeMillis())
