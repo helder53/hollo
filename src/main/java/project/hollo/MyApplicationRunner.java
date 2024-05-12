@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 import project.hollo.Stock.Stock;
 import project.hollo.Stock.StockRepository;
@@ -20,6 +22,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         stockDataUpload();
@@ -27,7 +32,8 @@ public class MyApplicationRunner implements ApplicationRunner {
 
     private void stockDataUpload() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Stock> stocks = objectMapper.readValue(new File("src/main/resources/Data/StockData.json"), new TypeReference<List<Stock>>(){});
+        Resource resource = resourceLoader.getResource("classpath:/Data/StockData.json");
+        List<Stock> stocks = objectMapper.readValue(resource.getInputStream(), new TypeReference<List<Stock>>(){});
 
         if (stocks.size() != stockRepository.count()){
             for (Stock stock : stocks){

@@ -4,6 +4,10 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+.github/*
+.github
+Dockerfile
+.dockerignore
 
 ### STS ###
 .apt_generated
@@ -26,6 +30,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .env
+
 
 ### NetBeans ###
 /nbproject/private/
