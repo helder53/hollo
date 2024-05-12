@@ -1,9 +1,4 @@
-#FROM ubuntu:latest
-#LABEL authors="dfg"
-#
-#ENTRYPOINT ["top", "-b"]
-
 FROM openjdk:17
-WORKDIR /hollo
-COPY build/libs/hollo-0.0.1-SNAPSHOT.jar hollo.jar
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} hollo.jar
 CMD ["java", "-jar", "hollo.jar"]
