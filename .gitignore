@@ -8,6 +8,7 @@ build/
 .github
 Dockerfile
 .dockerignore
+.gitignore
 
 ### STS ###
 .apt_generated
