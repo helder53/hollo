@@ -34,4 +34,6 @@ jobs:
           mysql password: ${{secrets.DB_PW}}
       
       - name: Build with Gradle Wrapper
-        run: ./gradlew build
+        run: |
+          ./gradlew --warning-mode all
+          ./gradlew build
