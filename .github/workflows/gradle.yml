@@ -26,6 +26,13 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
-
+    
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql database: "holloDB"
+          mysql user: ${{DB_USER}}
+          mysql password: ${{DB_PW}}
+      
       - name: Build with Gradle Wrapper
         run: ./gradlew build
