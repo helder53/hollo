@@ -1,5 +1,5 @@
 
-name: Depoly AWS with Docker
+name: Depoly AWS LightSail
 
 on:
   push:
@@ -10,36 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check Repository
-        uses: actions/checkout@v3
-  
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-  
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-    
-      - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql database: "holloDB"
-          mysql user: ${{secrets.DB_USER}}
-          mysql password: ${{secrets.DB_PW}}
-  
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-      
-      - name: Build with Gradle Wrapper
-        run: ./gradlew clean build -x test
-      
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{secrets.DOCKER_USER}}
-          password: ${{secrets.DOCKER_PW}}
-  
-      - name: Docker image Build
-        run: docker build -t ${{secrets.DOCKER_IMAGE}} .
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+    - name: Set up known hosts
+      run: |
+        echo "${{secrets.SSH_KNOWN_HOSTS}}" >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+
+    - name: SSH and deploy
+      run: |
+        ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
+          cd hollo
+          git pull
+          ./gradlew build || exit 1
+          ./gradlew bootRun || exit 1
+          exit
+        "
