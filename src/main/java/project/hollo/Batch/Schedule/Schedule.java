@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @EnableScheduling
 public class Schedule {
+
     @Autowired
     private JobLauncher jobLauncher;
 

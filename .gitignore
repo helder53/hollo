@@ -1,3 +1,4 @@
+
 HELP.md
 .gradle
 build/
@@ -30,6 +31,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .env
+
 
 ### NetBeans ###
 /nbproject/private/
