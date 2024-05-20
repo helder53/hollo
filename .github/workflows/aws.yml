@@ -1,0 +1,32 @@
+
+name: Depoly AWS LightSail
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  depoly:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+    - name: Set up known hosts
+      run: |
+        echo "${{secrets.SSH_KNOWN_HOSTS}}" >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+
+    - name: SSH and deploy
+      run: |
+        ssh ${{secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}} "
+          cd hollo
+          git pull
+          ./gradlew build || exit 1
+          ./gradlew bootRun || exit 1
+          exit
+        "

@@ -22,6 +22,9 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Autowired
     private StockRepository stockRepository;
 
+    @Autowired
+    private ResourceLoader resourceLoader;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         stockDataUpload();
