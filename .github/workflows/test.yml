@@ -29,3 +29,20 @@ jobs:
           mysql database: "hollo_DB"
           mysql user: ${{secrets.DB_USER}}
           mysql password: ${{secrets.DB_PW}}
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Set up Known hosts
+        run: |
+          echo "${{secrets.SSH_KNOWN_HOSTS}}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: SSH and Deploy
+        run: |
+          ssh ${secrets.SSH_USERNAME}}@${{secrets.SSH_PUBLIC_IP}}"
+          cd hollo
+      
