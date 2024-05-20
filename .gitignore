@@ -8,6 +8,7 @@ build/
 .gitignore
 .ssh/**
 .ssh
+Dockerfile
 
 ### STS ###
 .apt_generated
